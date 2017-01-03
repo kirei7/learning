@@ -1,0 +1,19 @@
+In the condition, class Customer carrying 2 tasks:
+1) Contains an information about customer (like a name)
+2) Knows how to calculate rental
+According to the Single Responsibility Principle, a single class should
+carry only one task, because if there were a need to modify rental calculation,
+we should've change a Customer class and recompile it, even if that changes
+did not affect first task. In our case, it's appropriate to let a Customer class
+care about customer's information, and pick out rental calculation rules
+into Rental class. This way we can subclass Rental class if we need to
+apply specific rental calculation rules, without changing existing classes.
+
+Another trouble is using an integer number to represent kind of rental.
+Without comments another developer cannot even understand what these
+int numbers is all about, so if something here should be changed, developer
+not knows what he should change. A simple and efficient solving of this problem
+is to create Enum with understandable names.
+
+Also it would be good to replace consequent "if" statements with a single "switch"
+statement since it improves readability and removes unnecessary checks.
