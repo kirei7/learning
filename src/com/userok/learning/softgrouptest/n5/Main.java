@@ -1,7 +1,6 @@
 package com.userok.learning.softgrouptest.n5;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.*;
 
 import static com.userok.learning.softgrouptest.n5.SalaryCalculator.calculate;
@@ -11,35 +10,51 @@ public class Main {
         Collection<Employee> employees = createCollection();
 
         //problem a)
+        /*Sort the collection of employees in descending order by the average
+        monthly salary. In the case of equal salary – by the name. Write ID, name and
+        monthly salary for all employees from collection.*/
         System.out.println("Problem a)");
         Collection<Employee> sorted = sortAndReverse(employees);
         display(sorted);
 
         //problem b)
+        /*Write information about first five employees from collection (problem a)*/
         System.out.println("Problem b)");
         Collection<Employee> firstFive = pickFirst(5, sorted);
         display(firstFive);
 
         //problem c)
+        /*Write ID of three last employees from collection (problem b).*/
         System.out.println("Problem c)");
         Collection<Employee> lastThree = pickLast(3, firstFive);
         displayIDs(lastThree);
 
         //problem d)
+        /*Write code for reading and writing collection of these objects from (into)
+        file.*/
         System.out.println("Problem d)");
-        FileHandler fileHandler = new FileHandler();
+        CSVFileHandler CSVFileHandler = new CSVFileHandler();
         //problem e)
+        /*Write code for handling the incorrect format of incoming file.*/
         try {
-            Collection<Employee> fromFile = fileHandler.readFromFile("emps.csv");
+            //read from file
+            Collection<Employee> fromFile = CSVFileHandler.readFromFile("emps.csv");
             System.out.println("Readed from file");
             display(fromFile);
-            fileHandler.writeToFile("newEmps.csv", employees);
+
+            //write to file
+            CSVFileHandler.writeToFile("newEmps.csv", employees);
             System.out.println("Writed to file");
-            display(fileHandler.readFromFile("newEmps.csv"));
+            display(CSVFileHandler.readFromFile("newEmps.csv"));
+
+            //if there is any errors with file handling, print a message about it
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+    //util functions below, needed to remove code duplication and improver readability
+    //of the main() method
 
     private static void displayIDs(Collection<Employee> employees) {
         System.out.println("IDs:");

@@ -2,6 +2,7 @@ package com.userok.learning.softgrouptest.n5;
 
 import java.math.BigDecimal;
 
+//this class contains a rules to the calculation of the rent
 public class SalaryCalculator {
     public static BigDecimal calculate(Payment type, BigDecimal amount) {
         switch (type) {

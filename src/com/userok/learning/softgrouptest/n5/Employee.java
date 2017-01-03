@@ -1,32 +1,38 @@
 package com.userok.learning.softgrouptest.n5;
 
 import java.math.BigDecimal;
-
+/*Class for representing an information about employee*/
 public class Employee implements Comparable<Employee>{
-    private static int counter;
-    private int id;
+    //counter field is needed to give each employee
+    //his unique id
+    private static long counter;
+    private long id;
     private String name;
     private BigDecimal avgSalary;
 
     public Employee(String name, BigDecimal avgSalary) {
+        //coma in the name will cause wrong parsing from a file(see CSVFileHandler class)
         if (name.contains(","))
             throw new IllegalArgumentException("Employee name shouldn't contain comas");
         this.name = name;
+        //set precision of a number to 2 digits after the point
         this.avgSalary = avgSalary.setScale(2, BigDecimal.ROUND_HALF_UP);
         id = ++counter;
     }
     public Employee(int id, String name, BigDecimal avgSalary) {
+        //there should be more complicated protection of ID's uniqueness, but
+        //since it is one-off program, it should be fine
+        if (counter < id) counter = id;
         this.id = id;
         this.name = name;
         this.avgSalary = avgSalary.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
-
+    //getters, setters
 
     public String getName() {
         return name;
     }
-
     public BigDecimal getAvgSalary() {
         return avgSalary;
     }
@@ -36,8 +42,7 @@ public class Employee implements Comparable<Employee>{
     public void setAvgSalary(BigDecimal avgSalary) {
         this.avgSalary = avgSalary.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -54,7 +59,7 @@ public class Employee implements Comparable<Employee>{
 
     @Override
     public int hashCode() {
-        return getId();
+        return new Long(id).hashCode();
     }
 
     @Override
